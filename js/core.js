@@ -28,10 +28,11 @@ $(document).ready(function() {
     scene.add(light);
 
     // геометрия
-    let geometry = new THREE.SphereGeometry(200, 100,100);
+    let geometry = new THREE.ParametricGeometry( THREE.ParametricGeometries.klein, 25, 25 );
     let material = new THREE.MeshBasicMaterial({color:0x00ff00, wireframe:true});
     // Материал
     let mesh = new THREE.Mesh(geometry, material);
+
     scene.add(mesh);
 
     
@@ -41,7 +42,11 @@ $(document).ready(function() {
         $(element).attr({'width':width+'px', 'height':height+'px'});
     }
     function loop () {
+        mesh.rotation.x += Math.PI / 100;
         render.render(scene, camera);
+        requestAnimationFrame(function(){loop();});
     }
+loop();
+   
 });
 
